@@ -1,0 +1,45 @@
+.landing-wrapper{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 80px;
+}
+.logo-container{
+    margin-top: 80px;
+}
+.main-image{
+    width: 780px;
+    height: 482px;
+}
+.main-image-container{
+    margin-top: 80px;
+}
+.buttons-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.start-btn{
+    width: 387px;
+    height: 60px;
+    background-color: #62A1EB;
+    color: #FFFFFF;
+    border: 0;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.list-btn{
+    width: 387px;
+    height: 60px;
+    background-color: #62A1EB;
+    color: #FFFFFF;
+    border: 0;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
