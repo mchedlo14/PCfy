@@ -5,9 +5,10 @@ import './style/Employeeinfo.css'
 const Employeeinfo = ({pageCounter,setPageCounter}) => {
 
     const [data, setData] = useState([]);
-    const [positionData,setPositionData] = useState([])
-    const [fname,setFname] = useState('')
-    const [lname,setLname] = useState('')
+    const [positionData,setPositionData] = useState([]);
+    const [fname,setFname] = useState('');
+    const [lname,setLname] = useState('');
+    const [mail,setMail] = useState('');
 
     // lname ref
     const fnameRefInput = useRef(null)
@@ -18,6 +19,11 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
     const lnameRefInput = useRef(null)
     const lnameTextRef = useRef(null)
     const lnameRequestRef = useRef(null)
+
+    //mail ref
+    const mailRefInput = useRef(null)
+    const mailTextRef = useRef(null)
+    const mailRequestRef = useRef(null)
     
 
     useEffect(()=> {
@@ -95,6 +101,26 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
         }
 
     },[lname])
+
+
+    useEffect(() => {
+        const Regex = /^[a-z0-9](.?[a-z0-9]){2,}@redberry.ge$/i;
+        if(Regex.test(mail)){
+            mailRefInput.current.style.borderColor = '#8AC0E2'
+            mailRequestRef.current.textContent = 'უნდა მთავრდებოდეს @redberry.ge-ით'
+            mailRequestRef.current.style.color = '#2E2E2E'
+        }else{
+            mailRefInput.current.style.borderColor = '#E52F2F'
+            mailRequestRef.current.textContent = 'უნდა მთავრდებოდეს @redberry.ge-ით'
+            mailRequestRef.current.style.color = '#E52F2F'
+        }
+
+        if(mail.length === 0){
+            mailRefInput.current.style.borderColor = '#8AC0E2'
+            mailRequestRef.current.textContent = 'უნდა მთავრდებოდეს @redberry.ge-ით'
+            mailRequestRef.current.style.color = '#2E2E2E'
+        }
+    },[mail])
   return (
     <section className='employee-wrapper'>
             <div className='page-nav'>
@@ -146,10 +172,12 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
                         </select>
                     </div>
 
+
+                    {/* mail */}
                     <div className='mail-container'>
-                        <p className='phone-text'>მეილი</p>
-                        <input type='text' className='mail-input'/>
-                        <p className='mail-request-text'>უნდა მთავრდებოდეს @redberry.ge-ით</p>
+                        <p className='phone-text' ref={mailTextRef}>მეილი</p>
+                        <input type='text' className='mail-input' onChange={e => setMail(e.target.value)} ref={mailRefInput}/>
+                        <p className='mail-request-text' ref={mailRequestRef}>უნდა მთავრდებოდეს @redberry.ge-ით</p>
                     </div>
 
                     <div className='phone-container'>

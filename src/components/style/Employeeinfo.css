@@ -179,7 +179,6 @@ select::-ms-expand{
     right: 0;
     top: 20px;
     padding: 0 20px;
-
 }
 option{
     margin-top: 20px;
@@ -196,6 +195,9 @@ option{
     margin-top: 8px;
     border: 1.8px solid #8AC0E2;
     border-radius: 8px;
+}
+.mail-input:focus{
+    outline: none;
 }
 .phone-request-text,.mail-request-text{
     color: #2E2E2E;
