@@ -9,6 +9,7 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
     const [fname,setFname] = useState('');
     const [lname,setLname] = useState('');
     const [mail,setMail] = useState('');
+    const [phone,setPhone] = useState('');
 
     // lname ref
     const fnameRefInput = useRef(null)
@@ -24,6 +25,11 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
     const mailRefInput = useRef(null)
     const mailTextRef = useRef(null)
     const mailRequestRef = useRef(null)
+
+    //mobile ref
+    const phoneRefInput = useRef(null)
+    const phoneTextRef = useRef(null)
+    const phoneRequestRef = useRef(null)
     
 
     useEffect(()=> {
@@ -114,7 +120,6 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             mailRequestRef.current.textContent = 'უნდა მთავრდებოდეს @redberry.ge-ით'
             mailRequestRef.current.style.color = '#E52F2F'
             mailTextRef.current.style.color = '#E52F2F'
-            
         }
 
         if(mail.length === 0){
@@ -124,6 +129,20 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             mailTextRef.current.style.color = '#2E2E2E'
         }
     },[mail])
+
+    useEffect(() => {
+        if(phone[0] === "5" && phone.length === 9){
+            phoneRefInput.current.style.borderColor = '#8AC0E2'
+            phoneRequestRef.current.textContent = 'უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს'
+            phoneRequestRef.current.style.color = '#2E2E2E'
+            phoneTextRef.current.style.color = '#000000'
+        }else{
+            phoneRefInput.current.style.borderColor = '#E52F2F'
+            phoneRequestRef.current.textContent = 'უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს'
+            phoneRequestRef.current.style.color = '#E52F2F'
+            phoneTextRef.current.style.color = '#E52F2F'
+        }
+    },[phone])
   return (
     <section className='employee-wrapper'>
             <div className='page-nav'>
@@ -165,7 +184,7 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
                     </div>
 
                     
-                    {/* custom select tag osition */}
+                    {/* custom select tag position */}
                     <div className='select'>
                         <select>
                             <option selected disabled>პოზიცია</option>
@@ -184,9 +203,9 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
                     </div>
 
                     <div className='phone-container'>
-                        <p className='phone-text'>ტელეფონის ნომერი</p>
-                        <input type='text' className='phone-input'/>
-                        <p className='phone-request-text'>უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს</p>
+                        <p className='phone-text' ref={phoneTextRef}>ტელეფონის ნომერი</p>
+                        <input type='text' className='phone-input' onChange={e => setPhone(e.target.value)} ref={phoneRefInput}/>
+                        <p className='phone-request-text' ref={phoneRequestRef}>უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს</p>
                     </div>
 
                     <div>
@@ -211,10 +230,3 @@ export default Employeeinfo
 
 
 
-{/* <div className='select-container'>
-<select>
-    {data && data.map((e,i) => {
-        return <option key={i} value="development">{e.name}</option>
-    })}
-</select>
-</div> */}
