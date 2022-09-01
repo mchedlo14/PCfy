@@ -54,7 +54,6 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             fnameRequestRef.current.textContent = 'გამოიყენე ქართული ასოები'
             fnameRequestRef.current.style.color = '#E52F2F'
         }else{
-            console.log('not english language')
             fnameRefInput.current.style.borderColor = '#8AC0E2'
             fnameTextRef.current.style.color = '#000000'
             fnameRequestRef.current.textContent = 'მინიმუმ 2 სიმბოლო, ქართული ასოები'
@@ -109,16 +108,20 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             mailRefInput.current.style.borderColor = '#8AC0E2'
             mailRequestRef.current.textContent = 'უნდა მთავრდებოდეს @redberry.ge-ით'
             mailRequestRef.current.style.color = '#2E2E2E'
+            mailTextRef.current.style.color = '#2E2E2E'
         }else{
             mailRefInput.current.style.borderColor = '#E52F2F'
             mailRequestRef.current.textContent = 'უნდა მთავრდებოდეს @redberry.ge-ით'
             mailRequestRef.current.style.color = '#E52F2F'
+            mailTextRef.current.style.color = '#E52F2F'
+            
         }
 
         if(mail.length === 0){
             mailRefInput.current.style.borderColor = '#8AC0E2'
             mailRequestRef.current.textContent = 'უნდა მთავრდებოდეს @redberry.ge-ით'
             mailRequestRef.current.style.color = '#2E2E2E'
+            mailTextRef.current.style.color = '#2E2E2E'
         }
     },[mail])
   return (
