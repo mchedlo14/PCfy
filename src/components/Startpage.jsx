@@ -1,6 +1,6 @@
 import React from 'react'
 import './style/Startpage.css'
-const Startpage = () => {
+const Startpage = ({pageCounter,setPageCounter}) => {
   return (
     <section className='landing-wrapper'>
         <div className='logo-container'>
@@ -12,7 +12,7 @@ const Startpage = () => {
         </div>
 
         <div className='buttons-wrapper'>
-            <button className='start-btn'>ჩანაწერის დამატება</button>
+            <button className='start-btn' onClick={() =>setPageCounter(pageCounter + 1) }>ჩანაწერის დამატება</button>
             <button className='list-btn'>ჩანაწერების სია</button>
         </div>
     </section>

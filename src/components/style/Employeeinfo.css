@@ -1,0 +1,223 @@
+.employee-wrapper{
+    width: 100%;
+    height: auto;
+    background-color: #F6F6F6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+.page-nav{
+    width: 100%;
+    height: auto;
+    overflow-y: hidden;
+}
+.arrow-container{
+    width: 53px;
+    height: 53px;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 55px;
+    margin-left: 70px;
+}
+.content-container{
+    width: 550px;
+    height: 30px;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+.content-container p{
+    color: #232323;
+    font-family: 'Helvetica Neue';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    position: relative;
+}
+.content-container p:first-child:after{
+    content:'';
+    position:absolute;
+    width:160px;
+    height:1px;
+    background:#000;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    border-radius: 2px;
+}
+.employee-form-wrapper{
+    width: 1226px;
+    height: 973px;
+    background-color: #FFF;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.select-container{
+    width: 870px;
+    height: 60px;
+    margin-top: 44px;
+}
+/* select{
+    width: 850px;
+    padding: 8px 24px;
+    background-color: #EBEBEB;
+    border-radius: 8px;
+} */
+
+
+.employee-form-parent{
+    width: 900px;
+    height: auto;
+    margin-top: 88px;
+    display: flex;
+    flex-direction: column;
+}
+.user-container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+}
+.name-container{
+    width: 440px;
+    height: 135px;
+}
+.lastname-container{
+    width: 440px;
+    height: 135px;
+}
+.name-text,.lname-text{
+    color: #000000;
+    font-family: 'Helvetica Neue';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    padding-left: 20px;
+    padding-top: 8px;
+}
+.phone-text{
+    color: #000000;
+    font-family: 'Helvetica Neue';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+}
+.name-input,.lname-input{
+    width: 407px;
+    height: 60px;
+    border: 1.8px solid #8AC0E2;
+    border-radius: 8px;
+    margin-left: 20px;
+    margin-top: 8px;
+    font-family: 'Helvetica Neue';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+    padding-left: 5px;
+}
+.name-input:focus{
+    outline: none;
+}
+.request-text{
+    color: #2E2E2E;
+    font-family: 'Helvetica Neue';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 21px;
+    padding-left: 20px;
+    padding-top: 8px;
+}
+select{
+    /* width: 878px;
+    height: 60px;
+    margin-left: 20px;
+    margin-top: 36px; */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    background-color: #EBEBEB;
+    border: 0;
+    border-radius: 8px;
+    /* border-radius: 18px;
+    font-weight: 800;
+    padding-left: 8px; */
+    font-size: 18px;
+    flex: 1;
+    padding-left: 8px;
+    cursor: pointer;
+}
+select::-ms-expand{
+    display: none;
+}
+.select{
+    position: relative;
+    display: flex;
+    width: 878px;
+    height: 60px;
+    margin-left: 20px;
+    margin-top: 36px;
+}
+.select::after{
+    content: url('/public/images/downarrow.png');
+    position: absolute;
+    right: 0;
+    top: 20px;
+    padding: 0 20px;
+
+}
+option{
+    margin-top: 20px;
+}
+.phone-container,.mail-container{
+    width: 878px;
+    height: auto;
+    margin-top: 32px;
+    margin-left: 20px;
+}
+.phone-input,.mail-input{
+    width: 100%;
+    height: 60px;
+    margin-top: 8px;
+    border: 1.8px solid #8AC0E2;
+    border-radius: 8px;
+}
+.phone-request-text,.mail-request-text{
+    color: #2E2E2E;
+    font-family: 'Helvetica Neue';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 21px;
+    padding-top: 8px;
+}
+.next-btn{
+    margin-top: 90px;
+    background-color: #62A1EB;
+    padding: 18px 60px;
+    color: white;
+    border: 0;
+    font-family: 'Helvetica Neue';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    float: right;
+}
