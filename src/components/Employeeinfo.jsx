@@ -7,11 +7,18 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
     const [data, setData] = useState([]);
     const [positionData,setPositionData] = useState([])
     const [fname,setFname] = useState('')
+    const [lname,setLname] = useState('')
 
-    // ref
+    // lname ref
     const fnameRefInput = useRef(null)
     const fnameTextRef = useRef(null)
     const fnameRequestRef = useRef(null)
+
+    //lname ref
+    const lnameRefInput = useRef(null)
+    const lnameTextRef = useRef(null)
+    const lnameRequestRef = useRef(null)
+    
 
     useEffect(()=> {
         const getData = async () => {
@@ -60,6 +67,34 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             fnameRequestRef.current.style.color = '#2E2E2E'
         }
     },[fname])
+
+    //lastname validation
+    useEffect(() => {
+        if (/^[a-zA-Z]+$/.test(lname) ){
+            lnameRefInput.current.style.borderColor = '#E52F2F'
+            lnameTextRef.current.style.color = '#E52F2F'
+            lnameRequestRef.current.textContent = 'გამოიყენე ქართული ასოები'
+            lnameRequestRef.current.style.color = '#E52F2F'
+        }else{
+            lnameRefInput.current.style.borderColor = '#8AC0E2'
+            lnameTextRef.current.style.color = '#000000'
+            lnameRequestRef.current.textContent = 'მინიმუმ 2 სიმბოლო, ქართული ასოები'
+            lnameRequestRef.current.style.color = '#2E2E2E'
+        }
+
+        if(lname.length < 2){
+            lnameRefInput.current.style.borderColor = '#E52F2F'
+            lnameRequestRef.current.textContent = 'მინიმუმ 2 სიმბოლო'
+            lnameRequestRef.current.style.color = '#E52F2F'
+        }
+
+        if(lname.length === 0){
+            lnameRefInput.current.style.borderColor = '#8AC0E2'
+            lnameRequestRef.current.textContent = 'მინიმუმ 2 სიმბოლო, ქართული ასოები'
+            lnameRequestRef.current.style.color = '#2E2E2E'
+        }
+
+    },[lname])
   return (
     <section className='employee-wrapper'>
             <div className='page-nav'>
@@ -78,14 +113,14 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
                     <div className='user-container'>
                         <div className='name-container'>
                             <p className='name-text' ref={fnameTextRef}>სახელი</p>
-                            <input type='text' className='name-input' onChange={e => setFname(e.target.value)} ref={fnameRefInput}/>
+                            <input type='text' className='name-input' required onChange={e => setFname(e.target.value)} ref={fnameRefInput}/>
                             <p className='request-text' ref={fnameRequestRef}>მინიმუმ 2 სიმბოლო, ქართული ასოები</p>
                         </div>
 
                         <div className='lastname-container'>
-                            <p className='lname-text'>გვარი</p>
-                            <input type='text' className='lname-input'/>
-                            <p className='request-text'>მინიმუმ 2 სიმბოლო, ქართული ასოები</p>
+                            <p className='lname-text' ref={lnameTextRef}>გვარი</p>
+                            <input type='text' className='lname-input' required onChange={e => setLname(e.target.value)} ref={lnameRefInput}/>
+                            <p className='request-text' ref={lnameRequestRef}>მინიმუმ 2 სიმბოლო, ქართული ასოები</p>
                         </div>
                     </div>
 
