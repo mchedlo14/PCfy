@@ -10,6 +10,9 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
     const [lname,setLname] = useState('');
     const [mail,setMail] = useState('');
     const [phone,setPhone] = useState('');
+    const [team,setTeam] = useState('');
+    const [position,setPosition] = useState('');
+    const [errors,setErrors] = useState({fname:false,lname:false,mail:false,phone:false,team:false,position:false})
 
     // lname ref
     const fnameRefInput = useRef(null)
@@ -106,8 +109,8 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
         }
 
     },[lname])
-
-
+    
+    // mail validation
     useEffect(() => {
         const Regex = /^[a-z0-9](.?[a-z0-9]){2,}@redberry.ge$/i;
         if(Regex.test(mail)){
@@ -130,6 +133,7 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
         }
     },[mail])
 
+    //phone validation
     useEffect(() => {
         if(phone[0] === "5" && phone.length === 9){
             phoneRefInput.current.style.borderColor = '#8AC0E2'
@@ -142,6 +146,14 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             phoneRequestRef.current.style.color = '#E52F2F'
             phoneTextRef.current.style.color = '#E52F2F'
         }
+
+        if(phone.length === 0){
+            phoneRefInput.current.style.borderColor = '#8AC0E2'
+            phoneRequestRef.current.textContent = 'უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს'
+            phoneRequestRef.current.style.color = '#2E2E2E'
+            phoneTextRef.current.style.color = '#000000'
+        }
+        console.log(team)
     },[phone])
   return (
     <section className='employee-wrapper'>
@@ -175,10 +187,10 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
 
                     {/* custom select tag team */}
                     <div className='select'>
-                        <select>
-                            <option selected disabled>თიმი</option>
+                        <select onChange={e => setTeam(e.target.value)}>
+                            <option defaultValue disabled>თიმი</option>
                             {data && data.map((e,i) => {
-                                return <option key={i} value="development">{e.name}</option>
+                                return <option key={i} value={e.name}>{e.name}</option>
                             })}
                         </select>
                     </div>
@@ -186,10 +198,10 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
                     
                     {/* custom select tag position */}
                     <div className='select'>
-                        <select>
-                            <option selected disabled>პოზიცია</option>
+                        <select onChange={e => setPosition(e.target.value)}>
+                            <option defaultValue disabled>პოზიცია</option>
                             {positionData && positionData.map((e,i) => {
-                                return <option key={i} value="development">{e.name}</option>
+                                return <option key={i} value={e.name}>{e.name}</option>
                             })}
                         </select>
                     </div>
@@ -209,7 +221,7 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
                     </div>
 
                     <div>
-                        <button className='next-btn'>შემდეგი</button>
+                        <button className='next-btn' onClick={() => setPageCounter(pageCounter + 1)}>შემდეგი</button>
                     </div>
 
                 </div>
@@ -221,7 +233,7 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             <img src='/images/redberry-logo.png'/>
         </div>
 
-        
+
     </section>
   )
 }

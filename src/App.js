@@ -11,6 +11,8 @@ function App() {
       :
       pageCounter === 1 ? <Employeeinfo pageCounter={pageCounter} setPageCounter={setPageCounter}/>
       :
+      pageCounter === 2? <></>
+      :
       <></>
       }
     </div>
