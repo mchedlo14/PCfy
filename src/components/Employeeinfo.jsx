@@ -57,28 +57,29 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
 
     // firstname validation 
     useEffect(() => {
-        if (/^[a-zA-Z]+$/.test(fname) ){
+        if (/^[a-zA-Z]+$/.test(fname)){
             fnameRefInput.current.style.borderColor = '#E52F2F'
             fnameTextRef.current.style.color = '#E52F2F'
             fnameRequestRef.current.textContent = 'გამოიყენე ქართული ასოები'
             fnameRequestRef.current.style.color = '#E52F2F'
-        }else{
+        }else if(!/^[a-zA-Z]+$/.test(fname) && fname.length > 2){
             fnameRefInput.current.style.borderColor = '#8AC0E2'
             fnameTextRef.current.style.color = '#000000'
             fnameRequestRef.current.textContent = 'მინიმუმ 2 სიმბოლო, ქართული ასოები'
             fnameRequestRef.current.style.color = '#2E2E2E'
-        }
-
-        if(fname.length < 2){
+            errors.fname = true
+        }else{
             fnameRefInput.current.style.borderColor = '#E52F2F'
             fnameRequestRef.current.textContent = 'მინიმუმ 2 სიმბოლო'
             fnameRequestRef.current.style.color = '#E52F2F'
+            fnameTextRef.current.style.color = '#E52F2F'
         }
 
         if(fname.length === 0){
             fnameRefInput.current.style.borderColor = '#8AC0E2'
             fnameRequestRef.current.textContent = 'მინიმუმ 2 სიმბოლო, ქართული ასოები'
             fnameRequestRef.current.style.color = '#2E2E2E'
+            fnameTextRef.current.style.color = '#000000'       
         }
     },[fname])
 
@@ -89,18 +90,19 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             lnameTextRef.current.style.color = '#E52F2F'
             lnameRequestRef.current.textContent = 'გამოიყენე ქართული ასოები'
             lnameRequestRef.current.style.color = '#E52F2F'
-        }else{
+        }else if(!/^[a-zA-Z]+$/.test(fname) && lname.length > 2){
             lnameRefInput.current.style.borderColor = '#8AC0E2'
             lnameTextRef.current.style.color = '#000000'
             lnameRequestRef.current.textContent = 'მინიმუმ 2 სიმბოლო, ქართული ასოები'
             lnameRequestRef.current.style.color = '#2E2E2E'
-        }
-
-        if(lname.length < 2){
+            errors.lname = true
+        }else{
             lnameRefInput.current.style.borderColor = '#E52F2F'
             lnameRequestRef.current.textContent = 'მინიმუმ 2 სიმბოლო'
             lnameRequestRef.current.style.color = '#E52F2F'
+            lnameTextRef.current.style.color = '#000000'
         }
+
 
         if(lname.length === 0){
             lnameRefInput.current.style.borderColor = '#8AC0E2'
@@ -118,6 +120,7 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             mailRequestRef.current.textContent = 'უნდა მთავრდებოდეს @redberry.ge-ით'
             mailRequestRef.current.style.color = '#2E2E2E'
             mailTextRef.current.style.color = '#2E2E2E'
+            errors.mail = true
         }else{
             mailRefInput.current.style.borderColor = '#E52F2F'
             mailRequestRef.current.textContent = 'უნდა მთავრდებოდეს @redberry.ge-ით'
@@ -140,6 +143,7 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             phoneRequestRef.current.textContent = 'უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს'
             phoneRequestRef.current.style.color = '#2E2E2E'
             phoneTextRef.current.style.color = '#000000'
+            errors.phone = true
         }else{
             phoneRefInput.current.style.borderColor = '#E52F2F'
             phoneRequestRef.current.textContent = 'უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს'
@@ -153,8 +157,23 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             phoneRequestRef.current.style.color = '#2E2E2E'
             phoneTextRef.current.style.color = '#000000'
         }
-        console.log(team)
     },[phone])
+
+    const validate = () => {
+        if(team !== '' && position !== ''){
+            errors.team = true;
+            errors.position = true;
+        }
+
+        Object.values(errors).forEach(item => {
+            console.log(item)
+            if (item === true){
+                setPageCounter(pageCounter + 1)
+            }else{
+                console.log(errors)
+            }
+        })
+    }
   return (
     <section className='employee-wrapper'>
             <div className='page-nav'>
@@ -221,7 +240,7 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
                     </div>
 
                     <div>
-                        <button className='next-btn' onClick={() => setPageCounter(pageCounter + 1)}>შემდეგი</button>
+                        <button className='next-btn' onClick={validate}>შემდეგი</button>
                     </div>
 
                 </div>
