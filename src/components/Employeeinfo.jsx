@@ -12,7 +12,7 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
     const [phone,setPhone] = useState('');
     const [team,setTeam] = useState('');
     const [position,setPosition] = useState('');
-    const [errors,setErrors] = useState({fname:false,lname:false,mail:false,phone:false,team:false,position:false})
+    const [errors] = useState({fname:false,lname:false,mail:false,phone:false,team:false,position:false})
 
     // lname ref
     const fnameRefInput = useRef(null)
@@ -33,6 +33,10 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
     const phoneRefInput = useRef(null)
     const phoneTextRef = useRef(null)
     const phoneRequestRef = useRef(null)
+
+    //select option ref 
+    const teamRef = useRef(null)
+    const positionRef = useRef(null)
     
 
     useEffect(()=> {
@@ -160,19 +164,28 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
     },[phone])
 
     const validate = () => {
-        if(team !== '' && position !== ''){
+
+        if(team!==''){
             errors.team = true;
-            errors.position = true;
+            teamRef.current.style.borderColor = 'transparent'
+        }else{
+            teamRef.current.style.borderColor = '#E52F2F'
         }
 
-        Object.values(errors).forEach(item => {
-            console.log(item)
-            if (item === true){
-                setPageCounter(pageCounter + 1)
-            }else{
-                console.log(errors)
-            }
-        })
+        if(position!==''){
+            positionRef.current.style.borderColor = 'transparent'
+            errors.position = true;
+        }else{
+            positionRef.current.style.borderColor = '#E52F2F'
+        }
+
+        let isTrue = Object.values(errors).every(element => element === true)
+
+        if(isTrue){
+            setPageCounter(pageCounter + 1)
+        }
+
+        
     }
   return (
     <section className='employee-wrapper'>
@@ -205,7 +218,7 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
 
 
                     {/* custom select tag team */}
-                    <div className='select'>
+                    <div className='select' ref={teamRef}>
                         <select onChange={e => setTeam(e.target.value)}>
                             <option defaultValue disabled>თიმი</option>
                             {data && data.map((e,i) => {
@@ -214,9 +227,10 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
                         </select>
                     </div>
 
+
                     
                     {/* custom select tag position */}
-                    <div className='select'>
+                    <div className='select' ref={positionRef}>
                         <select onChange={e => setPosition(e.target.value)}>
                             <option defaultValue disabled>პოზიცია</option>
                             {positionData && positionData.map((e,i) => {

@@ -43,3 +43,42 @@
     font-weight: 500;
     cursor: pointer;
 }
+
+
+@media(max-width:800px){
+    .main-image{
+        width: 680px;
+        height: 400px;
+    }
+}
+@media(max-width:700px){
+    .main-image{
+        width: 580px;
+        height: 320px;
+    }
+}
+@media(max-width:600px){
+    .main-image{
+        width: 500px;
+        height: 270px;
+    }
+}
+@media(max-width:500px){
+    .main-image{
+        width: 300px;
+        height: 180px;
+    }
+    .buttons-wrapper{
+        width: 100%;
+    }
+    .start-btn{
+        width: 90%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+    .list-btn{
+        width: 90%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+}

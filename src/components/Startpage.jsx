@@ -1,6 +1,8 @@
 import React from 'react'
+import { useRef } from 'react'
 import './style/Startpage.css'
 const Startpage = ({pageCounter,setPageCounter}) => {
+
   return (
     <section className='landing-wrapper'>
         <div className='logo-container'>
