@@ -8,7 +8,7 @@ const Successpage = ({pageCounter,setPageCounter}) => {
             <img src='/images/Frame.svg' alt='succesimage' className='success-image'/>
             <p>ჩანაწერი დამატებულია!</p>
             <div className='success-buttons-container'>
-                <button className='success-list'>სიაში გადაყვანა</button>
+                <button className='success-list' onClick={() => setPageCounter(pageCounter + 1)}>სიაში გადაყვანა</button>
                 <button className='success-main' onClick={() => setPageCounter(0)}>მთავარი</button>
             </div>
         </div>

@@ -29,7 +29,7 @@ const Startpage = ({pageCounter,setPageCounter}) => {
 
         <div className='buttons-wrapper'>
             <button className='start-btn' onClick={() =>setPageCounter(pageCounter + 1) }>ჩანაწერის დამატება</button>
-            <button className='list-btn'>ჩანაწერების სია</button>
+            <button className='list-btn' onClick={() =>setPageCounter(4) }>ჩანაწერების სია</button>
         </div>
     </section>
   )

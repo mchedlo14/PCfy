@@ -1,7 +1,9 @@
 import React,{ useState } from 'react';
 import './App.css';
+import Allinfo from './components/Allinfo';
 import Employeeinfo from './components/Employeeinfo';
 import Laptopreq from './components/Laptopreq';
+import Laptopspage from './components/Laptopspage';
 import Startpage from './components/Startpage';
 import Successpage from './components/Successpage';
 
@@ -20,6 +22,10 @@ function App() {
       :
       pageCounter === 3 ? <Successpage pageCounter={pageCounter} setPageCounter={setPageCounter}/>
       :
+      pageCounter === 4 ? <Laptopspage pageCounter={pageCounter} setPageCounter={setPageCounter} />
+      :
+      pageCounter === 5 ? <Allinfo pageCounter={pageCounter} setPageCounter={setPageCounter}/> 
+      : 
       <></>
       }
     </div>
