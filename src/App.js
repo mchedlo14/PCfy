@@ -6,7 +6,7 @@ import Startpage from './components/Startpage';
 import Successpage from './components/Successpage';
 
 function App() {
-  const [pageCounter,setPageCounter] = useState(2)
+  const [pageCounter,setPageCounter] = useState(0)
   const [fdata] = useState({
     user:{},
     laptop:{}
@@ -21,7 +21,7 @@ function App() {
       :
       pageCounter === 2 ? <Laptopreq pageCounter={pageCounter} setPageCounter={setPageCounter} fdata={fdata}/>
       :
-      pageCounter === 3 ? <Successpage />
+      pageCounter === 3 ? <Successpage pageCounter={pageCounter} setPageCounter={setPageCounter}/>
       :
       <></>
       }

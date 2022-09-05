@@ -214,7 +214,7 @@
     margin-top: 8px;
     border: 1.8px solid #8AC0E2;
     border-radius: 8px;
-
+    outline: none;
 }
 .ram-request-text{
     padding-left: 24px;

@@ -1,7 +1,7 @@
 import React from 'react'
 import './style/Successpage.css'
 
-const Successpage = () => {
+const Successpage = ({pageCounter,setPageCounter}) => {
   return (
     <section className='success-wrapper'>
         <div className='success-container'>
@@ -9,7 +9,7 @@ const Successpage = () => {
             <p>ჩანაწერი დამატებულია!</p>
             <div className='success-buttons-container'>
                 <button className='success-list'>სიაში გადაყვანა</button>
-                <button className='success-main'>მთავარი</button>
+                <button className='success-main' onClick={() => setPageCounter(0)}>მთავარი</button>
             </div>
         </div>
     </section>

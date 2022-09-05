@@ -12,12 +12,30 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
     const [imgsrc, setImgsrc] = useState(src ? src : null);
     const [imginfo, setImginfo] = useState(null);
     const [file, setFile] = useState(null);
+    const [cpuCore,setCpuCore] = useState('');
+    const [cpuStream,SetCpuStream] = useState('');
+    const [laptopRam,setLaptopRam] = useState('');
+    const [diskType,setDiskType] = useState('')
+    const [laptopPrice,setLaptopPrice] = useState(0)
+    const [state,setState] = useState('')
 
 
     const laptopTextRef = useRef(null)
     const laptopInputRef = useRef(null)
     const laptoprequestRef = useRef(null)
     const uploadRef = useRef(null);
+    const cpuRef = useRef(null);
+    const cpuTextRef = useRef(null);
+    const cpuRequest = useRef(null);
+    const streamTextRef = useRef(null);
+    const streamInputRef = useRef(null);
+    const streamRequestRef = useRef(null);
+    const ramRequestRef = useRef(null);
+    const ramInputRef = useRef(null);
+    const ramTextRef = useRef(null);
+    const diskTyperef = useRef(null)
+    const priceTextRef = useRef(null)
+    const priceInputRef = useRef(null)
 
 
     //laptop name validation
@@ -76,6 +94,94 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
         });
     }
 
+    //cpu core validation
+    useEffect(() => {
+        const cpuregex = /^[0-9]+$/
+
+        if(cpuregex.test(cpuCore)){
+            cpuRequest.current.style.color = '#2E2E2E'
+            cpuRef.current.style.borderColor = '#8AC0E2'
+            cpuTextRef.current.style.color = '2E2E2E'
+            //ak daemateba datashi 
+
+        }else{
+            console.log('arasworia')
+            cpuRequest.current.style.color = '#E52F2F'
+            cpuRef.current.style.borderColor = '#E52F2F'
+            cpuTextRef.current.style.color = '#E52F2F'
+
+        }
+
+        if(cpuCore.length === 0){
+            cpuRequest.current.style.color = '#000000'
+            cpuRef.current.style.borderColor = '#8AC0E2'
+            cpuTextRef.current.style.color = '#000000'
+        }
+    },[cpuCore])
+
+
+    //cpu stream validation
+    useEffect(() => {
+        const streamRegex = /^[0-9]+$/
+        if(streamRegex.test(cpuStream)){
+            streamRequestRef.current.style.color = '#2E2E2E'
+            streamInputRef.current.style.borderColor = '#8AC0E2'
+            streamTextRef.current.style.color = '2E2E2E'
+        }else{
+            streamRequestRef.current.style.color = '#E52F2F'
+            streamInputRef.current.style.borderColor = '#E52F2F'
+            streamTextRef.current.style.color = '#E52F2F'
+        }
+
+        if(cpuStream.length === 0){
+            streamRequestRef.current.style.color = '#000000'
+            streamInputRef.current.style.borderColor = '#8AC0E2'
+            streamTextRef.current.style.color = '#000000'
+        }
+
+    },[cpuStream])
+
+    //laptop ram validation
+    useEffect(() => {
+        const ramRegex = /^[0-9]+$/
+        if(ramRegex.test(laptopRam)){
+            ramRequestRef.current.style.color = '#2E2E2E'
+            ramInputRef.current.style.borderColor = '#8AC0E2'
+            ramTextRef.current.style.color = '#2E2E2E'
+            fdata.ram = parseInt(laptopRam)
+        }else{
+            ramRequestRef.current.style.color = '#E52F2F'
+            ramInputRef.current.style.borderColor = '#E52F2F'
+            ramTextRef.current.style.color = '#E52F2F'
+        }
+
+        if(laptopRam.length === 0){
+            ramRequestRef.current.style.color = '#000000'
+            ramInputRef.current.style.borderColor = '#8AC0E2'
+            ramTextRef.current.style.color = '#000000'
+        }
+    },[laptopRam])
+
+    //laptop price validation 
+    useEffect(() => {
+        const priceRegex = /^[0-9]+$/
+        if(priceRegex.test(laptopPrice)){
+            priceInputRef.current.style.borderColor = '#8AC0E2'
+            priceTextRef.current.style.color = '#000000'
+            fdata.price = laptopPrice
+        }else{
+            priceInputRef.current.style.borderColor = '#E52F2F'
+            priceTextRef.current.style.color = '#E52F2F'
+        }
+
+        if(laptopPrice.length === 0){
+            priceInputRef.current.style.borderColor = '#8AC0E2'
+            priceTextRef.current.style.color = '#000000'
+        }
+    },[laptopPrice])
+
+
+
     const getFileFromBase = (string64, fileName, fileType) => {
         const trimmed = fileType === "image/jpeg" ? string64.replace("data:image/jpeg;base64,", "") :
         fileType === "image/png" ? string64.replace("data:image/png;base64,", "") : null;
@@ -110,9 +216,26 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
     useEffect(() => {
         if(file){
             console.log(file);
+            fdata.laptop.image = file
         }
     },[file])
 
+
+    //send data
+    const sendData = () => {
+        if(diskType !== ''){
+            fdata.hard_drive_type = diskType
+            setPageCounter(pageCounter + 1)
+        }else{
+            diskTyperef.current.style.color = '#E52F2F'
+        }
+
+        if(state !== ''){
+            fdata.state = state
+        }
+
+        console.log(fdata)
+    }
     
   return (
     <section className='laptop-wrapper'>
@@ -163,29 +286,29 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
                 <div className='cpu-container'>
                     <div className='cpu-dropdown'></div>
                     <div className='cpu-input-container'>
-                        <p>CPU-ს ბირთვი</p>
-                        <input type='text' className='cpu-input'/>
-                        <p>მხოლოდ ციფრები</p>
+                        <p ref={cpuTextRef}>CPU-ს ბირთვი</p>
+                        <input type='text' className='cpu-input' ref={cpuRef} onChange={e => setCpuCore(e.target.value)}/>
+                        <p ref={cpuRequest}>მხოლოდ ციფრები</p>
                     </div>
                     <div className='cpu-n-container'>
-                        <p>CPU-ს ნაკადი</p>
-                        <input type='text' className='cpu-n'/>
-                        <p>მხოლოდ ციფრები</p>
+                        <p ref={streamTextRef}>CPU-ს ნაკადი</p>
+                        <input type='text' className='cpu-n' ref={streamInputRef} onChange={e => SetCpuStream(e.target.value)}/>
+                        <p ref={streamRequestRef}>მხოლოდ ციფრები</p>
                     </div>
                 </div>
 
                 <div className='laptop-ram-container'>
                     <div className='ram-container'>
-                        <p className='ram-text'>ლეპტოპის RAM(gb)</p>
-                        <input type='text' className='ram-input'/>
-                        <p className='ram-request-text'>მხოლოდ ციფრები</p>
+                        <p className='ram-text' ref={ramTextRef}>ლეპტოპის RAM(gb)</p>
+                        <input type='text' className='ram-input' ref={ramInputRef} onChange={e => setLaptopRam(e.target.value)}/>
+                        <p className='ram-request-text' ref={ramRequestRef}>მხოლოდ ციფრები</p>
                     </div>
 
-                    <div className='disk-container'>
-                        <p className='mem-type'>მეხსიერების ტიპი</p>
+                    <div className='disk-container' onChange={(e) => setDiskType(e.target.value)}>
+                        <p className='mem-type' ref={diskTyperef}>მეხსიერების ტიპი</p>
                         <div className='radio-container'>
-                            <input type="radio" value="Male"/> SSD
-                            <input type="radio" value="Female"/> HDD
+                            <input type="radio" value="SSD"/> SSD
+                            <input type="radio" value="HDD"/> HDD
                         </div>
                     </div>
 
@@ -199,22 +322,22 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
                         <input type='date' className='date-input'/>
                     </div>
                     <div className='laptop-price'>
-                        <p className='date-text'>ლეპტოპის ფასი</p>
-                        <input type='text' className='date-input'/>
+                        <p className='date-text' ref={priceTextRef}>ლეპტოპის ფასი</p>
+                        <input type='text' className='date-input' ref={priceInputRef} onChange={e => setLaptopPrice(e.target.value)}/>
                     </div>
                 </div>
 
                 <div className='condition-container'>
                     <p>ლეპტოპის მდგომარეობა</p>
-                    <div className='radio-container'>
-                            <input type="radio" value="Male" /> ახალი
-                            <input type="radio" value="Female"/> მეორადი
+                    <div className='radio-container' onChange={e => setState(e.target.value)}>
+                            <input type="radio" value="new" /> ახალი
+                            <input type="radio" value="old"/> მეორადი
                     </div>
                 </div>
 
                 <div className='laptop-buttons-container'>
                     <button className='back-btn' onClick={() => setPageCounter(pageCounter - 1)}>უკან</button>
-                    <button className='save-btn'>დამახსოვრება</button>
+                    <button className='save-btn' onClick={sendData}>დამახსოვრება</button>
                 </div>
 
             </div>
