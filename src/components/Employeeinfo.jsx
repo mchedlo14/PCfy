@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Pagenav from './Pagenav';
 import './style/Employeeinfo.css'
-
+import axios from 'axios'
 
 const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
 
@@ -87,7 +87,7 @@ const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
             fnameRequestRef.current.style.color = '#2E2E2E'
             fnameSuccess.current.style.display = 'block'
             errors.fname = true
-            fdata.user.name = fname
+            fdata.name = fname
 
         }else{
             fnameRefInput.current.style.borderColor = '#E52F2F'
@@ -119,7 +119,7 @@ const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
             lnameRequestRef.current.style.color = '#2E2E2E'
             lnameSuccess.current.style.display = 'block'
             errors.lname = true
-            fdata.user.surname = lname
+            fdata.surname = lname
         }else{
             lnameRefInput.current.style.borderColor = '#E52F2F'
             lnameRequestRef.current.textContent = 'მინიმუმ 2 სიმბოლო'
@@ -148,7 +148,7 @@ const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
             mailTextRef.current.style.color = '#2E2E2E'
             mailSuccess.current.style.display = 'block'
             errors.mail = true
-            fdata.user.email = mail
+            fdata.email = mail
         }else{
             mailRefInput.current.style.borderColor = '#E52F2F'
             mailRequestRef.current.textContent = 'უნდა მთავრდებოდეს @redberry.ge-ით'
@@ -174,7 +174,7 @@ const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
             phoneTextRef.current.style.color = '#000000'
             phoneSuccess.current.style.display = 'block'
             errors.phone = true
-            fdata.user.phone_number = parseInt(phone)
+            fdata.phone_number = '+' + phone
         }else{
             phoneRefInput.current.style.borderColor = '#E52F2F'
             phoneRequestRef.current.textContent = 'უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს'
@@ -195,13 +195,13 @@ const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
         setTeam(e)
         setDisplayTeam(false)
         setPosition(null)
-        fdata.user.team_id = e.id
+        fdata.team_id = e.id
     }
     
     const handlePositionSelect = (e) => {
         setPosition(e)
         setDisplayPosition(false)
-        fdata.user.position_id = e.id
+        fdata.position_id = e.id
     }
 
 
@@ -210,7 +210,7 @@ const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
         if(team!==0){
             errors.team = true;
             teamRef.current.style.borderColor = 'transparent'
-            fdata.user.position_id = position
+            fdata.position_id = position.id
         }else{
             teamRef.current.style.borderColor = '#E52F2F'
         }
@@ -223,11 +223,9 @@ const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
         }
 
         let isTrue = Object.values(errors).every(element => element === true)
-
         if(isTrue){
             setPageCounter(pageCounter + 1)
         }
-        console.log(positionRef)
     }
   return (
     <section className='employee-wrapper'>
@@ -251,6 +249,8 @@ const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
                             <img src='/images/successicon.png' className='success-icon' ref={lnameSuccess}/>
                         </div>
                     </div>
+
+
 
 
                     <div className='team-selector' ref={teamRef} onClick={() => setDisplayTeam(!displayTeam)}>

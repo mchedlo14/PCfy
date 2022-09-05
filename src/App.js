@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React,{ useState } from 'react';
 import './App.css';
 import Employeeinfo from './components/Employeeinfo';
 import Laptopreq from './components/Laptopreq';
@@ -7,10 +7,7 @@ import Successpage from './components/Successpage';
 
 function App() {
   const [pageCounter,setPageCounter] = useState(0)
-  const [fdata] = useState({
-    user:{},
-    laptop:{cpu:{}}
-  })
+  const [fdata] = useState({})
 
 
   return (

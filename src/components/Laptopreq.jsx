@@ -3,7 +3,7 @@ import { useRef } from 'react'
 import { useEffect } from 'react'
 import Pagenav from './Pagenav'
 import './style/Laptopreq.css'
-
+import axios from 'axios'
 const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
     const src = sessionStorage.getItem("img");
     const fileInfo = JSON.parse(sessionStorage.getItem("fileinfo"));
@@ -18,7 +18,14 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
     const [diskType,setDiskType] = useState('')
     const [laptopPrice,setLaptopPrice] = useState(0)
     const [state,setState] = useState('');
-    const [time,setTime] = useState('')
+    const [time,setTime] = useState('');
+    const [displaybrand,setDisplayBrand] = useState(false)
+    const [displayCpu,setDisplayCpu] = useState(false)
+    const [data,setData] = useState({})
+    const [brandData,setBrandData] = useState({})
+    const [brand,setBrand] = useState('')
+    const [cpuName,setCpuName] = useState('')
+    const [errors] = useState({laptopName:false,cpuCore:false,cpuStream:false,laptopRam:false,laptopPrice:false,file:false,time:false})
 
 
     const laptopTextRef = useRef(null)
@@ -49,7 +56,8 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
             laptopTextRef.current.style.color = '#000000'
             laptopInputRef.current.style.borderColor = '#8AC0E2'
             laptoprequestRef.current.style.color = '#000000'
-            fdata.laptop.name = laptopName
+            fdata.laptop_name = laptopName
+            errors.laptopName = true
         }else{
             laptopTextRef.current.style.color = '#E52F2F'
             laptopInputRef.current.style.borderColor = '#E52F2F'
@@ -106,10 +114,10 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
             cpuRef.current.style.borderColor = '#8AC0E2'
             cpuTextRef.current.style.color = '2E2E2E'
             //ak daemateba datashi 
-            fdata.laptop.cpu.cores = cpuCore
+            fdata.laptop_cpu_cores = cpuCore
+            errors.cpuCore = true
 
         }else{
-            console.log('arasworia')
             cpuRequest.current.style.color = '#E52F2F'
             cpuRef.current.style.borderColor = '#E52F2F'
             cpuTextRef.current.style.color = '#E52F2F'
@@ -131,7 +139,8 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
             streamRequestRef.current.style.color = '#2E2E2E'
             streamInputRef.current.style.borderColor = '#8AC0E2'
             streamTextRef.current.style.color = '2E2E2E'
-            fdata.laptop.cpu.threads = cpuStream
+            fdata.laptop_cpu_threads = cpuStream
+            errors.cpuStream = true
         }else{
             streamRequestRef.current.style.color = '#E52F2F'
             streamInputRef.current.style.borderColor = '#E52F2F'
@@ -153,7 +162,8 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
             ramRequestRef.current.style.color = '#2E2E2E'
             ramInputRef.current.style.borderColor = '#8AC0E2'
             ramTextRef.current.style.color = '#2E2E2E'
-            fdata.ram = parseInt(laptopRam)
+            fdata.laptop_ram = parseInt(laptopRam)
+            errors.laptopRam = true
         }else{
             ramRequestRef.current.style.color = '#E52F2F'
             ramInputRef.current.style.borderColor = '#E52F2F'
@@ -173,7 +183,8 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
         if(priceRegex.test(laptopPrice)){
             priceInputRef.current.style.borderColor = '#8AC0E2'
             priceTextRef.current.style.color = '#000000'
-            fdata.price = laptopPrice
+            fdata.laptop_price = parseFloat(laptopPrice)
+            errors.laptopPrice = true;
         }else{
             priceInputRef.current.style.borderColor = '#E52F2F'
             priceTextRef.current.style.color = '#E52F2F'
@@ -190,7 +201,8 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
     //time validation
     useEffect(() => {
         if(time){
-            fdata.purchase_date = time
+            fdata.laptop_purchase_date = time
+            errors.time = true
         }
     },[time])
 
@@ -227,10 +239,45 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
 
     useEffect(() => {
         if(file){
-            console.log(file);
-            fdata.laptop.image = file
+            fdata.laptop_image = file
+            errors.file = true
         }
     },[file])
+
+    //get brand data
+    useEffect(()=> {
+        const getData = async () => {
+            const response = await fetch("https://pcfy.redberryinternship.ge/api/brands");
+            const brandData = await response.json();
+            setData(brandData.data);
+        }
+
+        getData();
+    }, [])
+
+    //get cpu data
+    useEffect(()=> {
+        const getCpu = async () => {
+            const response = await fetch("https://pcfy.redberryinternship.ge/api/cpus");
+            const cpuData = await response.json();
+            setBrandData(cpuData.data);
+        }
+
+        getCpu();
+    }, [])
+
+    const hamdleBrandSelect = (e) => {
+        setBrand(e.name)
+        fdata.laptop_brand_id = e.id
+        setDisplayBrand(false)
+    }
+
+    const hamdleCpuSelect= (e) => {
+        setCpuName(e.name)
+        fdata.laptop_cpu = e.name
+        setDisplayCpu(false)
+    }
+    
 
 
     //send data
@@ -243,22 +290,40 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
             timetextRef.current.style.color = '#000000'
         }
         if(diskType !== ''){
-            fdata.hard_drive_type = diskType
-            // setPageCounter(pageCounter + 1)
+            fdata.laptop_hard_drive_type = diskType
         }else{
             diskTyperef.current.style.color = '#E52F2F'
         }
 
         if(state !== ''){
-            fdata.state = state
+            fdata.laptop_state = state
         }
 
         console.log(fdata)
+
+        let isTrue = Object.values(errors).every(element => element === true)
+
+        if(isTrue){
+            fdata.token = '09e8c043d7b0049d5331f959bd4e3e12'
+
+            const formData = new FormData();
+
+            Object.entries(fdata).forEach(pair => {
+                formData.append(pair[0], pair[1]);
+            });
+            
+            axios.post('https://pcfy.redberryinternship.ge/api/laptop/create',formData)
+            .then(res => res)
+            .catch(err => console.log('something wrong res =>',err))
+            setPageCounter(pageCounter + 1)
+        }
+
+
     }
-    
+
   return (
     <section className='laptop-wrapper'>
-        <button onClick={console.log(fdata)}></button>
+        {/* <button onClick={console.log(fdata)}></button> */}
         
         <Pagenav pageCounter={pageCounter} setPageCounter={setPageCounter}/>
         <div className='laptop-form-wrapper'>
@@ -294,8 +359,11 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
                     </div>
 
                     <div className='laptop-dropdown-container'>
-                        <div className='brand-dropdown'>
-
+                        <div className='brand-dropdown' onClick={() => setDisplayBrand(!displaybrand)}>
+                            <span>{brand ? brand : 'ბრენდი'}</span>
+                            {displaybrand && <div className='team-options'>{data && data.map((e,i) => {
+                                return <span key={i} onClick={() => hamdleBrandSelect(e)}>{e.name}</span>
+                            })} </div>}
                         </div>
                     </div>
                 </div>
@@ -303,7 +371,14 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
                 <div className='horizonal-line'></div>
                 
                 <div className='cpu-container'>
-                    <div className='cpu-dropdown'></div>
+                    <div className='cpu-dropdown'>
+                        <div className='cpu-drop' onClick={() => setDisplayCpu(!displayCpu)}>
+                            <span>{cpuName ? cpuName : 'CPU'}</span>
+                            {displayCpu && <div className='team-options'>{brandData && brandData.map((e,i) => {
+                                return <span key={i} onClick={() => hamdleCpuSelect(e)}>{e.name}</span>
+                            })} </div>}
+                        </div>
+                    </div>
                     <div className='cpu-input-container'>
                         <p ref={cpuTextRef}>CPU-ს ბირთვი</p>
                         <input type='text' className='cpu-input' ref={cpuRef} onChange={e => setCpuCore(e.target.value)}/>
@@ -350,7 +425,7 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
                     <p>ლეპტოპის მდგომარეობა</p>
                     <div className='radio-container' onChange={e => setState(e.target.value)}>
                             <input type="radio" value="new" /> ახალი
-                            <input type="radio" value="old"/> მეორადი
+                            <input type="radio" value="used"/> მეორადი
                     </div>
                 </div>
 
