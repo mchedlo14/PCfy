@@ -323,7 +323,6 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
 
   return (
     <section className='laptop-wrapper'>
-        {/* <button onClick={console.log(fdata)}></button> */}
         
         <Pagenav pageCounter={pageCounter} setPageCounter={setPageCounter}/>
         <div className='laptop-form-wrapper'>
@@ -337,8 +336,8 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
                             </> 
                         : null}
 
-                        <input type="image" className={imgsrc ? "show" : ""} src={imgsrc ? imgsrc : ""} />
-                        <input type="file" ref={uploadRef} accept='image/*' onChange={(e) => handleFileUpload(e.target.files[0])} />
+                        <input type="image" required className={imgsrc ? "show" : ""} src={imgsrc ? imgsrc : ""} />
+                        <input type="file" required ref={uploadRef} accept='image/*' onChange={(e) => handleFileUpload(e.target.files[0])} />
                     </div>
                 </div>
 
