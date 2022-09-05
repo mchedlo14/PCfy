@@ -1,16 +1,30 @@
-import React from 'react'
-import { useRef } from 'react'
+import React, { useEffect } from 'react'
+import { useState } from 'react'
 import './style/Startpage.css'
 const Startpage = ({pageCounter,setPageCounter}) => {
+  const [image,setImage] = useState(false)
 
-  return (
+  const imageRes = () => {
+    window.innerWidth < 500 ? setImage(true) : setImage(false)
+  }
+
+  window.addEventListener('resize',imageRes)
+
+  useEffect(() => {
+    imageRes()
+  },[])
+  
+  return (  
     <section className='landing-wrapper'>
         <div className='logo-container'>
-            <img src='/images/logo.png' alt='Logo'/>
+          <img src='/images/logo.png' alt='Logo'/>
         </div>
 
         <div className='main-image-container'>
-            <img className='main-image' src='/images/startimage.png'/>
+        { image ? <img src='/images/secondmain.png' alt='secondmain'/>
+          :
+          <img src='/images/startimage.png' alt='startimage'/>
+          }
         </div>
 
         <div className='buttons-wrapper'>

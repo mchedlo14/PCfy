@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import Pagenav from './Pagenav';
 import './style/Employeeinfo.css'
 
 
@@ -18,21 +19,25 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
     const fnameRefInput = useRef(null)
     const fnameTextRef = useRef(null)
     const fnameRequestRef = useRef(null)
+    const fnameSuccess = useRef(null)
 
     //lname ref
     const lnameRefInput = useRef(null)
     const lnameTextRef = useRef(null)
     const lnameRequestRef = useRef(null)
+    const lnameSuccess = useRef(null)
 
     //mail ref
     const mailRefInput = useRef(null)
     const mailTextRef = useRef(null)
     const mailRequestRef = useRef(null)
+    const mailSuccess = useRef(null)
 
     //mobile ref
     const phoneRefInput = useRef(null)
     const phoneTextRef = useRef(null)
     const phoneRequestRef = useRef(null)
+    const phoneSuccess = useRef(null)
 
     //select option ref 
     const teamRef = useRef(null)
@@ -57,7 +62,7 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
         }
 
         getPositionData()
-    },[])
+    }, [])
 
     // firstname validation 
     useEffect(() => {
@@ -71,12 +76,14 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             fnameTextRef.current.style.color = '#000000'
             fnameRequestRef.current.textContent = 'მინიმუმ 2 სიმბოლო, ქართული ასოები'
             fnameRequestRef.current.style.color = '#2E2E2E'
+            fnameSuccess.current.style.display = 'block'
             errors.fname = true
         }else{
             fnameRefInput.current.style.borderColor = '#E52F2F'
             fnameRequestRef.current.textContent = 'მინიმუმ 2 სიმბოლო'
             fnameRequestRef.current.style.color = '#E52F2F'
             fnameTextRef.current.style.color = '#E52F2F'
+            fnameSuccess.current.style.display = 'none'
         }
 
         if(fname.length === 0){
@@ -99,12 +106,14 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             lnameTextRef.current.style.color = '#000000'
             lnameRequestRef.current.textContent = 'მინიმუმ 2 სიმბოლო, ქართული ასოები'
             lnameRequestRef.current.style.color = '#2E2E2E'
+            lnameSuccess.current.style.display = 'block'
             errors.lname = true
         }else{
             lnameRefInput.current.style.borderColor = '#E52F2F'
             lnameRequestRef.current.textContent = 'მინიმუმ 2 სიმბოლო'
             lnameRequestRef.current.style.color = '#E52F2F'
             lnameTextRef.current.style.color = '#000000'
+            lnameSuccess.current.style.display = 'none'
         }
 
 
@@ -124,11 +133,13 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             mailRequestRef.current.textContent = 'უნდა მთავრდებოდეს @redberry.ge-ით'
             mailRequestRef.current.style.color = '#2E2E2E'
             mailTextRef.current.style.color = '#2E2E2E'
+            mailSuccess.current.style.display = 'block'
             errors.mail = true
         }else{
             mailRefInput.current.style.borderColor = '#E52F2F'
             mailRequestRef.current.textContent = 'უნდა მთავრდებოდეს @redberry.ge-ით'
             mailRequestRef.current.style.color = '#E52F2F'
+            mailSuccess.current.style.display = 'none'
             mailTextRef.current.style.color = '#E52F2F'
         }
 
@@ -147,12 +158,14 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             phoneRequestRef.current.textContent = 'უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს'
             phoneRequestRef.current.style.color = '#2E2E2E'
             phoneTextRef.current.style.color = '#000000'
+            phoneSuccess.current.style.display = 'block'
             errors.phone = true
         }else{
             phoneRefInput.current.style.borderColor = '#E52F2F'
             phoneRequestRef.current.textContent = 'უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს'
             phoneRequestRef.current.style.color = '#E52F2F'
             phoneTextRef.current.style.color = '#E52F2F'
+            phoneSuccess.current.style.display = 'none'
         }
 
         if(phone.length === 0){
@@ -189,30 +202,24 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
     }
   return (
     <section className='employee-wrapper'>
-            <div className='page-nav'>
-                <div className='arrow-container' onClick={() => setPageCounter(pageCounter - 1)}>
-                    <img src='/images/left-arrow.png'/>
-                </div>
-                <div className='content-container'>
-                    <p>თანამშრომლის ინფო</p>
-                    <p>ლეპტოპის მახასიათებლები</p>  
-                </div>
-            </div> 
+        
+            <Pagenav pageCounter={pageCounter} setPageCounter={setPageCounter}/>
 
             <div className='employee-form-wrapper'>
-
                 <div className='employee-form-parent'>
                     <div className='user-container'>
                         <div className='name-container'>
                             <p className='name-text' ref={fnameTextRef}>სახელი</p>
                             <input type='text' className='name-input' required onChange={e => setFname(e.target.value)} ref={fnameRefInput}/>
                             <p className='request-text' ref={fnameRequestRef}>მინიმუმ 2 სიმბოლო, ქართული ასოები</p>
+                            <img src='/images/successicon.png' className='success-icon' ref={fnameSuccess}/>
                         </div>
 
                         <div className='lastname-container'>
                             <p className='lname-text' ref={lnameTextRef}>გვარი</p>
                             <input type='text' className='lname-input' required onChange={e => setLname(e.target.value)} ref={lnameRefInput}/>
                             <p className='request-text' ref={lnameRequestRef}>მინიმუმ 2 სიმბოლო, ქართული ასოები</p>
+                            <img src='/images/successicon.png' className='success-icon' ref={lnameSuccess}/>
                         </div>
                     </div>
 
@@ -245,12 +252,14 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
                         <p className='phone-text' ref={mailTextRef}>მეილი</p>
                         <input type='text' className='mail-input' onChange={e => setMail(e.target.value)} ref={mailRefInput}/>
                         <p className='mail-request-text' ref={mailRequestRef}>უნდა მთავრდებოდეს @redberry.ge-ით</p>
+                        <img src='/images/successicon.png' className='success-icon-mail' ref={mailSuccess}/>
                     </div>
 
                     <div className='phone-container'>
                         <p className='phone-text' ref={phoneTextRef}>ტელეფონის ნომერი</p>
                         <input type='text' className='phone-input' onChange={e => setPhone(e.target.value)} ref={phoneRefInput}/>
                         <p className='phone-request-text' ref={phoneRequestRef}>უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს</p>
+                        <img src='/images/successicon.png' className='success-icon-phone' ref={phoneSuccess}/>
                     </div>
 
                     <div>
