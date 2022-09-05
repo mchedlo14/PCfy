@@ -17,7 +17,8 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
     const [laptopRam,setLaptopRam] = useState('');
     const [diskType,setDiskType] = useState('')
     const [laptopPrice,setLaptopPrice] = useState(0)
-    const [state,setState] = useState('')
+    const [state,setState] = useState('');
+    const [time,setTime] = useState('')
 
 
     const laptopTextRef = useRef(null)
@@ -33,9 +34,11 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
     const ramRequestRef = useRef(null);
     const ramInputRef = useRef(null);
     const ramTextRef = useRef(null);
-    const diskTyperef = useRef(null)
-    const priceTextRef = useRef(null)
-    const priceInputRef = useRef(null)
+    const diskTyperef = useRef(null);
+    const priceTextRef = useRef(null);
+    const priceInputRef = useRef(null);
+    const timetextRef = useRef(null);
+    const timeInputRef = useRef(null);
 
 
     //laptop name validation
@@ -103,6 +106,7 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
             cpuRef.current.style.borderColor = '#8AC0E2'
             cpuTextRef.current.style.color = '2E2E2E'
             //ak daemateba datashi 
+            fdata.laptop.cpu.cores = cpuCore
 
         }else{
             console.log('arasworia')
@@ -127,6 +131,7 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
             streamRequestRef.current.style.color = '#2E2E2E'
             streamInputRef.current.style.borderColor = '#8AC0E2'
             streamTextRef.current.style.color = '2E2E2E'
+            fdata.laptop.cpu.threads = cpuStream
         }else{
             streamRequestRef.current.style.color = '#E52F2F'
             streamInputRef.current.style.borderColor = '#E52F2F'
@@ -182,6 +187,13 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
 
 
 
+    //time validation
+    useEffect(() => {
+        if(time){
+            fdata.purchase_date = time
+        }
+    },[time])
+
     const getFileFromBase = (string64, fileName, fileType) => {
         const trimmed = fileType === "image/jpeg" ? string64.replace("data:image/jpeg;base64,", "") :
         fileType === "image/png" ? string64.replace("data:image/png;base64,", "") : null;
@@ -223,9 +235,16 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
 
     //send data
     const sendData = () => {
+        if(time === ''){
+            timeInputRef.current.style.borderColor = '#E52F2F'
+            timetextRef.current.style.color = '#E52F2F'
+        }else{
+            timeInputRef.current.style.borderColor = '#8AC0E2'
+            timetextRef.current.style.color = '#000000'
+        }
         if(diskType !== ''){
             fdata.hard_drive_type = diskType
-            setPageCounter(pageCounter + 1)
+            // setPageCounter(pageCounter + 1)
         }else{
             diskTyperef.current.style.color = '#E52F2F'
         }
@@ -318,8 +337,8 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
 
                 <div className='laptop-price-container'>
                     <div className='date-container'>
-                        <p className='date-text'>შეძენის რიცხვი(არჩევითი)</p>
-                        <input type='date' className='date-input'/>
+                        <p className='date-text' ref={timetextRef}>შეძენის რიცხვი(არჩევითი)</p>
+                        <input type='date' className='date-input' ref={timeInputRef} onChange={e => setTime(e.target.value)}/>
                     </div>
                     <div className='laptop-price'>
                         <p className='date-text' ref={priceTextRef}>ლეპტოპის ფასი</p>

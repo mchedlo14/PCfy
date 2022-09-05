@@ -9,7 +9,7 @@ function App() {
   const [pageCounter,setPageCounter] = useState(0)
   const [fdata] = useState({
     user:{},
-    laptop:{}
+    laptop:{cpu:{}}
   })
 
 
