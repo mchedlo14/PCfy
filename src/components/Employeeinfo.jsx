@@ -71,7 +71,7 @@ const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
             getPositionData()
         }
 
-    }, [team])
+    }, [team,fdata])
 
     // firstname validation 
     useEffect(() => {
@@ -103,7 +103,7 @@ const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
             fnameRequestRef.current.style.color = '#2E2E2E'
             fnameTextRef.current.style.color = '#000000'       
         }
-    },[fname])
+    },[fname,fdata])
 
     //lastname validation
     useEffect(() => {
@@ -135,7 +135,7 @@ const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
             lnameRequestRef.current.style.color = '#2E2E2E'
         }
 
-    },[lname])
+    },[lname,fdata])
 
 
     // mail validation
@@ -189,7 +189,7 @@ const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
             phoneRequestRef.current.style.color = '#2E2E2E'
             phoneTextRef.current.style.color = '#000000'
         }
-    },[phone])
+    },[phone,fdata])
 
     const hamdleTeamSelect = (e) => {
         setTeam(e)
