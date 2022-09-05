@@ -239,14 +239,14 @@ const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
                             <p className='name-text' ref={fnameTextRef}>სახელი</p>
                             <input type='text' className='name-input' required onChange={e => setFname(e.target.value)} ref={fnameRefInput}/>
                             <p className='request-text' ref={fnameRequestRef}>მინიმუმ 2 სიმბოლო, ქართული ასოები</p>
-                            <img src='/images/successicon.png' className='success-icon' ref={fnameSuccess}/>
+                            <img src='/images/successicon.png' className='success-icon' ref={fnameSuccess} alt='success'/>
                         </div>
 
                         <div className='lastname-container'>
                             <p className='lname-text' ref={lnameTextRef}>გვარი</p>
                             <input type='text' className='lname-input' required onChange={e => setLname(e.target.value)} ref={lnameRefInput}/>
                             <p className='request-text' ref={lnameRequestRef}>მინიმუმ 2 სიმბოლო, ქართული ასოები</p>
-                            <img src='/images/successicon.png' className='success-icon' ref={lnameSuccess}/>
+                            <img src='/images/successicon.png' className='success-icon' ref={lnameSuccess} alt='success'/>
                         </div>
                     </div>
 
@@ -279,14 +279,14 @@ const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
                         <p className='phone-text' ref={mailTextRef}>მეილი</p>
                         <input type='text' className='mail-input' onChange={e => setMail(e.target.value)} ref={mailRefInput}/>
                         <p className='mail-request-text' ref={mailRequestRef}>უნდა მთავრდებოდეს @redberry.ge-ით</p>
-                        <img src='/images/successicon.png' className='success-icon-mail' ref={mailSuccess}/>
+                        <img src='/images/successicon.png' className='success-icon-mail' ref={mailSuccess} alt='success'/>
                     </div>
 
                     <div className='phone-container'>
                         <p className='phone-text' ref={phoneTextRef}>ტელეფონის ნომერი</p>
                         <input type='text' className='phone-input' onChange={e => setPhone(e.target.value)} ref={phoneRefInput}/>
                         <p className='phone-request-text' ref={phoneRequestRef}>უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს</p>
-                        <img src='/images/successicon.png' className='success-icon-phone' ref={phoneSuccess}/>
+                        <img src='/images/successicon.png' className='success-icon-phone' ref={phoneSuccess} alt='success'/>
                     </div>
 
                     <div>
@@ -299,7 +299,7 @@ const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
             </div>
 
         <div>
-            <img src='/images/redberry-logo.png'/>
+            <img src='/images/redberry-logo.png' alt='logo'/>
         </div>
 
 

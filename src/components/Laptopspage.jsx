@@ -20,7 +20,7 @@ const Laptopspage = ({setPageCounter}) => {
     <section className='laptops-wrapper'>
         <div className='lists'>
             <div className='back-div' onClick={() => setPageCounter(0)}>
-                <img src='/images/left-arrow.png'/>
+                <img src='/images/left-arrow.png' alt='image'/>
             </div>
             <p>ჩანაწერების სია</p>
         </div>

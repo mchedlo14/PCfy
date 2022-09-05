@@ -438,7 +438,7 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
         </div>
 
         <div>
-            <img src='/images/redberry-logo.png'/>
+            <img src='/images/redberry-logo.png' alt='logo'/>
         </div>
     </section>
   )

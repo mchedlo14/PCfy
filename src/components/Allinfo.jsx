@@ -22,7 +22,7 @@ const Allinfo = ({pageCounter,setPageCounter}) => {
     <section>
         <div className='laptop-info-container'>
             <div className='left-arrow-containerr' onClick={() => setPageCounter(pageCounter - 1)}>
-               <img src='/images/left-arrow.png' /> 
+               <img src='/images/left-arrow.png' alt='image'/> 
             </div>
             <p>ლეპტოპის ინფო</p>
         </div>
