@@ -3,7 +3,7 @@ import Pagenav from './Pagenav';
 import './style/Employeeinfo.css'
 
 
-const Employeeinfo = ({pageCounter,setPageCounter}) => {
+const Employeeinfo = ({pageCounter,setPageCounter,fdata}) => {
 
     const [data, setData] = useState([]);
     const [positionData,setPositionData] = useState([]);
@@ -11,8 +11,11 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
     const [lname,setLname] = useState('');
     const [mail,setMail] = useState('');
     const [phone,setPhone] = useState('');
-    const [team,setTeam] = useState('');
-    const [position,setPosition] = useState('');
+    const [team,setTeam] = useState(null);
+    const [position,setPosition] = useState(0);
+    const [displayTeam,setDisplayTeam] = useState(false)
+    const [displayPosition,setDisplayPosition] = useState(false)
+
     const [errors] = useState({fname:false,lname:false,mail:false,phone:false,team:false,position:false})
 
     // lname ref
@@ -55,14 +58,20 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
     }, [])
 
     useEffect(() => {
-        const getPositionData = async () => {
-            const response = await fetch("https://pcfy.redberryinternship.ge/api/positions")
-            const positionData = await response.json()
-            setPositionData(positionData.data)
+
+        if(team){
+            const getPositionData = async () => {
+                const response = await fetch("https://pcfy.redberryinternship.ge/api/positions")
+                const positionData = await response.json()
+                const options = positionData.data.filter(e => {
+                   return  e.team_id === team.id
+                })
+                setPositionData(options)
+            }
+            getPositionData()
         }
 
-        getPositionData()
-    }, [])
+    }, [team])
 
     // firstname validation 
     useEffect(() => {
@@ -78,6 +87,8 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             fnameRequestRef.current.style.color = '#2E2E2E'
             fnameSuccess.current.style.display = 'block'
             errors.fname = true
+            fdata.user.name = fname
+
         }else{
             fnameRefInput.current.style.borderColor = '#E52F2F'
             fnameRequestRef.current.textContent = 'მინიმუმ 2 სიმბოლო'
@@ -108,6 +119,7 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             lnameRequestRef.current.style.color = '#2E2E2E'
             lnameSuccess.current.style.display = 'block'
             errors.lname = true
+            fdata.user.surname = lname
         }else{
             lnameRefInput.current.style.borderColor = '#E52F2F'
             lnameRequestRef.current.textContent = 'მინიმუმ 2 სიმბოლო'
@@ -124,7 +136,8 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
         }
 
     },[lname])
-    
+
+
     // mail validation
     useEffect(() => {
         const Regex = /^[a-z0-9](.?[a-z0-9]){2,}@redberry.ge$/i;
@@ -135,6 +148,7 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
             mailTextRef.current.style.color = '#2E2E2E'
             mailSuccess.current.style.display = 'block'
             errors.mail = true
+            fdata.user.email = mail
         }else{
             mailRefInput.current.style.borderColor = '#E52F2F'
             mailRequestRef.current.textContent = 'უნდა მთავრდებოდეს @redberry.ge-ით'
@@ -153,13 +167,14 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
 
     //phone validation
     useEffect(() => {
-        if(phone[0] === "5" && phone.length === 9){
+        if(phone[0] === "9" && phone.length === 12){
             phoneRefInput.current.style.borderColor = '#8AC0E2'
             phoneRequestRef.current.textContent = 'უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს'
             phoneRequestRef.current.style.color = '#2E2E2E'
             phoneTextRef.current.style.color = '#000000'
             phoneSuccess.current.style.display = 'block'
             errors.phone = true
+            fdata.user.phone_number = parseInt(phone)
         }else{
             phoneRefInput.current.style.borderColor = '#E52F2F'
             phoneRequestRef.current.textContent = 'უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს'
@@ -176,11 +191,26 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
         }
     },[phone])
 
+    const hamdleTeamSelect = (e) => {
+        setTeam(e)
+        setDisplayTeam(false)
+        setPosition(null)
+        fdata.user.team_id = e.id
+    }
+    
+    const handlePositionSelect = (e) => {
+        setPosition(e)
+        setDisplayPosition(false)
+        fdata.user.position_id = e.id
+    }
+
+
     const validate = () => {
 
-        if(team!==''){
+        if(team!==0){
             errors.team = true;
             teamRef.current.style.borderColor = 'transparent'
+            fdata.user.position_id = position
         }else{
             teamRef.current.style.borderColor = '#E52F2F'
         }
@@ -197,8 +227,7 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
         if(isTrue){
             setPageCounter(pageCounter + 1)
         }
-
-        
+        console.log(positionRef)
     }
   return (
     <section className='employee-wrapper'>
@@ -224,26 +253,24 @@ const Employeeinfo = ({pageCounter,setPageCounter}) => {
                     </div>
 
 
-                    {/* custom select tag team */}
-                    <div className='select' ref={teamRef}>
-                        <select onChange={e => setTeam(e.target.value)}>
-                            <option defaultValue disabled>თიმი</option>
-                            {data && data.map((e,i) => {
-                                return <option key={i} value={e.name}>{e.name}</option>
-                            })}
-                        </select>
+                    <div className='team-selector' ref={teamRef} onClick={() => setDisplayTeam(!displayTeam)}>
+                        <span>{team ? team.name : 'თიმი'}</span>
+                        {displayTeam && <div className='team-options'>{data && data.map((e,i) => {
+                            return <span key={i} onClick={() => hamdleTeamSelect(e)}>{e.name}</span>
+                        })} </div>}
+                        
                     </div>
+
 
 
                     
                     {/* custom select tag position */}
-                    <div className='select' ref={positionRef}>
-                        <select onChange={e => setPosition(e.target.value)}>
-                            <option defaultValue disabled>პოზიცია</option>
-                            {positionData && positionData.map((e,i) => {
-                                return <option key={i} value={e.name}>{e.name}</option>
-                            })}
-                        </select>
+                    <div className='position-selector' ref={positionRef} onClick={() => setDisplayPosition(!displayPosition)}>
+                        <span>{position ? position.name : 'პოზიცია'}</span>
+                        {displayPosition && <div className='team-options'>{positionData && positionData.map((e,i) => {
+                            return <span key={i} onClick={() => handlePositionSelect(e)}>{e.name}</span>
+                        })} </div>}
+                        
                     </div>
 
 
