@@ -25,7 +25,7 @@ function App() {
       :
       pageCounter === 4 ? <Laptopspage pageCounter={pageCounter} setPageCounter={setPageCounter} />
       :
-      pageCounter === 5 ? <AlllaptopInfo />
+      pageCounter === 5 ? <AlllaptopInfo  pageCounter={pageCounter} setPageCounter={setPageCounter}/>
       :
       <></>
       }

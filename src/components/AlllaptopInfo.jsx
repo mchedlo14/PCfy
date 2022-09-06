@@ -4,7 +4,7 @@ import './style/Alllaptopinfo.css'
 import axios from 'axios'
 
 
-const AlllaptopInfo = () => {
+const AlllaptopInfo = ({setPageCounter,pageCounter}) => {
   const [lapInfo,setLapInfo] = useState({})
 
   useEffect(() => {
@@ -21,6 +21,12 @@ const AlllaptopInfo = () => {
   },[])
   return (
     <>
+    <div className='allinfo-nav-container'>
+      <div className='circle-allinfo' onClick={() => setPageCounter(pageCounter - 1)}>
+        <img src='/images/left-arrow.png' alt='arrow' />
+      </div>
+      <p className='laptop-info-text'>ლეპტოპის ინფო</p>
+    </div>
     {Object.keys(lapInfo).length === 0 ? <p>Loading</p>
     :
     <div className='info-wrapper'>
@@ -75,7 +81,7 @@ const AlllaptopInfo = () => {
           <p>{lapInfo.laptop.state}</p>
           <p>{lapInfo.laptop.price}</p>
         </div>
-        <div className='date-container'>
+        <div className='date-containerr'>
           <p>შევსების რიცხვი: </p>
           <p>{lapInfo.laptop.purchase_date}</p>
         </div>
