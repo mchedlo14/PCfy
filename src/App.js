@@ -6,10 +6,12 @@ import Laptopspage from './components/Laptopspage';
 import Startpage from './components/Startpage';
 import Successpage from './components/Successpage';
 import axios from 'axios';
+import AlllaptopInfo from './components/AlllaptopInfo';
 
 function App() {
   const [pageCounter,setPageCounter] = useState(0)
   const [fdata] = useState({})
+
 
   return (
     <div className="App">
@@ -22,6 +24,8 @@ function App() {
       pageCounter === 3 ? <Successpage pageCounter={pageCounter} setPageCounter={setPageCounter}/>
       :
       pageCounter === 4 ? <Laptopspage pageCounter={pageCounter} setPageCounter={setPageCounter} />
+      :
+      pageCounter === 5 ? <AlllaptopInfo />
       :
       <></>
       }

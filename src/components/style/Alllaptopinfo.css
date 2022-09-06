@@ -1,0 +1,63 @@
+.info-wrapper{
+    width: 100%;
+    height: auto;
+}
+.laptop-info-container{
+    width: 1178px;
+    height: 905px;
+    margin: auto;
+    margin-top: 80px;
+}
+.info-image-container{
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: space-around;
+}
+.about{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.hrl{
+    width: 80%;
+    margin: auto;
+    height: 1px;
+    margin-top: 40px;
+    background-color: #A5A5A5;
+}
+.laptop-info{
+    width: 80%;
+    height: auto;
+    margin: auto;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.about-laptop-container{
+    width: 442px;
+    height: 230px;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+.about-cpu{
+    width: 300px;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+}
+.state-container{
+    width: 80%;
+    height: 200px;
+    margin: auto;
+    margin-top: 40px;
+    display: flex;
+    gap: 30px;
+}
+.date-container{
+    margin-left: 110px;
+    display: flex;
+    gap: 30px;
+}
