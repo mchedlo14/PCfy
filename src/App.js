@@ -1,16 +1,15 @@
-import React,{ useState } from 'react';
+import React,{ useState,useEffect } from 'react';
 import './App.css';
-import Allinfo from './components/Allinfo';
 import Employeeinfo from './components/Employeeinfo';
 import Laptopreq from './components/Laptopreq';
 import Laptopspage from './components/Laptopspage';
 import Startpage from './components/Startpage';
 import Successpage from './components/Successpage';
+import axios from 'axios';
 
 function App() {
   const [pageCounter,setPageCounter] = useState(0)
   const [fdata] = useState({})
-
 
   return (
     <div className="App">
@@ -24,8 +23,6 @@ function App() {
       :
       pageCounter === 4 ? <Laptopspage pageCounter={pageCounter} setPageCounter={setPageCounter} />
       :
-      pageCounter === 5 ? <Allinfo pageCounter={pageCounter} setPageCounter={setPageCounter}/> 
-      : 
       <></>
       }
     </div>

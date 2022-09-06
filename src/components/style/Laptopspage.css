@@ -44,51 +44,7 @@
     flex-wrap: wrap;
 }
 
-.username{
-    color: #2E2E2E;
-    font-family: 'Helvetica Neue';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 21px;
-    padding-top: 45px;
-}
-.laptop{
-    color: #2E2E2E;
-    font-family: 'Helvetica Neue';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 21px;
-    padding-top: 18px;
-}
-.more{
-    font-family: 'Helvetica Neue';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 21px;
-    text-decoration: underline;
-    color: #4386A9;
-    padding-top: 40px;
-    cursor: pointer;
-}
 
-.laptop-container{
-    width: 563px;
-    height: 205px;
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    gap: 28px;
-}
-
-.laptop-image{
-    width: 266px;
-    height: 178px;
-    margin-top: 14px;
-    margin-left: 14px;
-}
 
 
 @media(max-width:520px){

@@ -70,7 +70,7 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
 
 
 
-    }, [laptopName])
+    }, [laptopName,fdata])
 
     const imgUploadClick = (e) => {
         e.preventDefault();
@@ -129,7 +129,7 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
             cpuRef.current.style.borderColor = '#8AC0E2'
             cpuTextRef.current.style.color = '#000000'
         }
-    },[cpuCore])
+    },[cpuCore,fdata])
 
 
     //cpu stream validation
@@ -153,7 +153,7 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
             streamTextRef.current.style.color = '#000000'
         }
 
-    },[cpuStream])
+    },[cpuStream,fdata])
 
     //laptop ram validation
     useEffect(() => {
@@ -175,7 +175,7 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
             ramInputRef.current.style.borderColor = '#8AC0E2'
             ramTextRef.current.style.color = '#000000'
         }
-    },[laptopRam])
+    },[laptopRam,fdata])
 
     //laptop price validation 
     useEffect(() => {
@@ -194,7 +194,7 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
             priceInputRef.current.style.borderColor = '#8AC0E2'
             priceTextRef.current.style.color = '#000000'
         }
-    },[laptopPrice])
+    },[laptopPrice,fdata])
 
 
 
@@ -204,7 +204,7 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
             fdata.laptop_purchase_date = time
             errors.time = true
         }
-    },[time])
+    },[time,fdata])
 
     const getFileFromBase = (string64, fileName, fileType) => {
         const trimmed = fileType === "image/jpeg" ? string64.replace("data:image/jpeg;base64,", "") :
@@ -242,7 +242,7 @@ const Laptopreq = ({pageCounter,setPageCounter,fdata}) => {
             fdata.laptop_image = file
             errors.file = true
         }
-    },[file])
+    },[file,fdata])
 
     //get brand data
     useEffect(()=> {

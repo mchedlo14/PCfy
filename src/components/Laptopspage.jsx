@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import './style/Laptopspage.css'
 import axios from 'axios'
+import Laptops from './Laptops'
 const Laptopspage = ({setPageCounter}) => {
     const [list, setList] = useState([]);
+
     useEffect(() => {
         const getLaptops = async () => {
             const res = axios.get('https://pcfy.redberryinternship.ge/api/laptops?token=09e8c043d7b0049d5331f959bd4e3e12');
@@ -12,10 +14,13 @@ const Laptopspage = ({setPageCounter}) => {
             if(data) {
                 const laptops = data.data;
                 setList(laptops.data);
+                console.log(laptops.data)
             }
         }
         getLaptops()
     },[])
+
+    
   return (
     <section className='laptops-wrapper'>
         <div className='lists'>
@@ -25,16 +30,10 @@ const Laptopspage = ({setPageCounter}) => {
             <p>ჩანაწერების სია</p>
         </div>
         <div className='laptops-parents'>
-            {list.map((e, i) => {
-              return <div className='laptop-container'>
-                <img src={'https://pcfy.redberryinternship.ge' + e.laptop.image}  alt='laptop_image' className='laptop-image'/>
-                <div>
-                    <h2 className='username'>{e.user.name}</h2>
-                    <p className='laptop'>{e.laptop.name}</p>
-                    <p className='more' onClick={() => setPageCounter(5)}>მეტის ნახვა</p>
-                </div>
-              </div>
-        })}
+            {list && list.map((e, i) => {
+              return <Laptops setPageCounter={setPageCounter}  key={i} imgSrc={e.laptop.image} laptopID={e.laptop.id} laptopName={e.laptop.name}
+              firstName={e.user.name} lastName={e.user.surname}/> 
+             })}
         </div>
     </section>
   )
